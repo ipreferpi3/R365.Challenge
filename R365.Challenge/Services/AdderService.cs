@@ -6,11 +6,6 @@ namespace R365.Challenge.Services
     {
         public int TryAdd(string[] args)
         {
-            if (args.Length > 2)
-            {
-                throw new Exception("Arguement length cannot exceed 2 operands.");
-            }
-
             var total = 0;
 
             foreach (var op in args)

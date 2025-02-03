@@ -15,6 +15,24 @@ namespace R365.Challenge.Tests
         }
 
         [Test]
+        public void TryAdd_ShouldReturnCorrectSum_WhenGiven5IntsAndNonIntsAsInput()
+        {
+            var input = new string[] { "1", "d", "3", "", "2", "adf", "1", "qwerty", "3", "@^(" };
+            var result = _adderService.TryAdd(input);
+
+            Assert.That(result, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void TryAdd_ShouldReturnCorrectSum_WhenGiven3IntsAsInput()
+        {
+            var input = new string[] { "1", "2", "3" };
+            var result = _adderService.TryAdd(input);
+
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
         public void TryAdd_ShouldReturnCorrectSum_WhenGiven2IntsAsInput()
         {
             var input = new string[] { "1", "2" };
@@ -57,15 +75,6 @@ namespace R365.Challenge.Tests
             var result = _adderService.TryAdd(input);
 
             Assert.That(result, Is.EqualTo(0));
-        }
-
-        
-        [Test]
-        public void TryAdd_ShouldThrow_WhenGivenMoreThan2Arguments()
-        {
-            var input = new string[] { "1", "2", "3" };
-
-            Assert.Throws<Exception>(() => _adderService.TryAdd(input));
         }
     }
 }
