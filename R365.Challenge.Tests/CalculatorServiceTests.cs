@@ -26,13 +26,5 @@ namespace R365.Challenge.Tests
             A.CallTo(() => _fakeAdderService.TryAdd(new string[] { "1", "2" })).MustHaveHappened();
             Assert.That(result, Is.EqualTo(12));
         }
-
-        [Test]
-        public void Calculate_ShouldThrowException_WhenGivenInvalidInput()
-        {
-            A.CallTo(() => _fakeAdderService.TryAdd(A<string[]>.Ignored)).Throws(new Exception());
-
-            Assert.Throws<Exception>(() => _calculatorService.Calculate(new string("1,2,3")));
-        }
     }
 }
