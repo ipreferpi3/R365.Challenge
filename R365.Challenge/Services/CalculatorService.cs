@@ -13,7 +13,7 @@ namespace R365.Challenge.Services
 
         public int Calculate(string input)
         {
-            var operands = input.Split(',');
+            var operands = input.Split(new string[] { ",", "\\n" }, StringSplitOptions.None);
             try
             {
                 return _adder.TryAdd(operands);
