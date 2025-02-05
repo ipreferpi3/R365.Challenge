@@ -2,6 +2,6 @@
 {
     public interface IAdderService
     {
-        int TryAdd(string[] args);
+        int TryAdd(List<int> input);
     }
 }

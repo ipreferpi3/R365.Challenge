@@ -21,6 +21,7 @@ namespace R365.Challenge
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<IAdderService, AdderService>()
                 .AddSingleton<ICalculatorService, CalculatorService>()
+                .AddSingleton<IInputParserService, InputParserService>()
                 .AddSingleton<Application>()
                 .BuildServiceProvider();
 
