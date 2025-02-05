@@ -16,19 +16,28 @@ namespace R365.Challenge.Services
 
             ContainsNegatives(inputList);
 
-            return inputList;
+            var filteredInputList = FilterGreaterThan(inputList);
+
+            return filteredInputList;
         }
 
-        private bool ContainsNegatives(List<int> input) 
+        private bool ContainsNegatives(List<int> input, bool isAllowed = false) 
         {
             var negatives = input.Where(i => i < 0);
 
-            if (negatives.Any())
+            if (negatives.Any() && !isAllowed)
             {
                 throw new ArgumentException(string.Format("Input cannot contain negatives : {0}", string.Join(", ", negatives)));
             }
 
             return negatives.Any();
+        }
+
+        private List<int> FilterGreaterThan(List<int> input, int ceiling = 1000)
+        {
+            var filteredInputList = input.Select(i => i <= ceiling ? i : 0).ToList();
+
+            return filteredInputList;
         }
     }
 }
