@@ -45,6 +45,16 @@ namespace R365.Challenge.Tests
         }
 
         [Test]
+        public void Parse_ShouldReturnIntsGreaterThan1000_AsValue0()
+        {
+            var input = new string[] { "a", "2", "1000", "1001" };
+
+            var result = _inputParserService.Parse(input);
+
+            Assert.That(result, Is.EqualTo(new List<int> { 0, 2, 1000, 0 }));
+        }
+
+        [Test]
         public void Parse_ShouldThrowArguementException_WhenGivenArrayOfStringsContainingNegatives()
         {
             var input = new string[] { "1", "b", "-4" };
