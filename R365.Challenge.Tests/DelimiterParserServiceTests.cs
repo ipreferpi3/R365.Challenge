@@ -54,6 +54,21 @@ namespace R365.Challenge.Tests
         }
 
         [Test]
+        public void GetDelimiters_ShouldReturnAllMultiCharacterCustomAndDefaultDelimiters_WhenInputContainsArrayOfMultiCharacterCustomDelimiter()
+        {
+            var input = "//[*][!!][r9r]\\n11r9r22*hh*33!!44";
+            var calculation = _delimiterParserService.GetDelimiters(input);
+
+            Assert.That(calculation.Delimiters, Is.Not.Empty);
+            Assert.That(calculation.Delimiters.Count, Is.EqualTo(5));
+            Assert.That(calculation.Delimiters.Contains(","), Is.True);
+            Assert.That(calculation.Delimiters.Contains("\\n"), Is.True);
+            Assert.That(calculation.Delimiters.Contains("*"), Is.True);
+            Assert.That(calculation.Delimiters.Contains("!!"), Is.True);
+            Assert.That(calculation.Delimiters.Contains("r9r"), Is.True);
+        }
+
+        [Test]
         public void GetDelimiters_ShoudThrowException_WhenInputContainsIncorrectlyFormattedCustomDelimiter()
         {
             var input = "//#n2#5";
