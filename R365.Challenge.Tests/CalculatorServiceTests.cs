@@ -26,14 +26,14 @@ namespace R365.Challenge.Tests
         {
             var calculationResult = new Calculation
             {
-                Delimiters = new List<string> { ",", "\n" },
+                Delimiters = new List<string> { ",", "\\n" },
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculationResult);
             A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(12);
 
-            var result = _calculatorService.Calculate(new string("1\n2"));
+            var result = _calculatorService.Calculate(new string("1\\n2"));
 
             A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" })).MustHaveHappened();
             A.CallTo(() => _fakeAdderService.TryAdd(new List<int> { 1, 2 })).MustHaveHappened();
@@ -83,7 +83,7 @@ namespace R365.Challenge.Tests
         {
             var calculationResult = new Calculation
             {
-                Delimiters = new List<string> { ",", "\n", "#" },
+                Delimiters = new List<string> { ",", "\\n", "#" },
                 OperandStartIndex = 4
             };
 

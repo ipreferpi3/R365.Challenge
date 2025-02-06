@@ -6,7 +6,7 @@ namespace R365.Challenge.Services
 {
     public class DelimiterParserService : IDelimiterParserService
     {
-        private readonly List<string> DefaultDelimiters = new List<string> { ",", "\n" };
+        private readonly List<string> DefaultDelimiters = new List<string> { ",", "\\n" };
 
         public Calculation GetDelimiters(string input)
         {
@@ -18,9 +18,9 @@ namespace R365.Challenge.Services
                 var delimiterString = input.Substring(2, 1);
                 delimiters.Add(delimiterString);
                 //Add one to this value since the close for custom delimiters is 2 characters long.
-                calculation.OperandStartIndex = input.IndexOf("\n") + 1;
+                calculation.OperandStartIndex = input.IndexOf("\\n") + 2;
 
-                if (calculation.OperandStartIndex != 4)
+                if (calculation.OperandStartIndex != 5)
                 {
                     //At this point, custom delimiters should be single characters and bound between // and \n
                     //If this format is not used, we need to throw here
