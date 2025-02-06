@@ -20,7 +20,16 @@ namespace R365.Challenge.Tests
             var input = new List<int> { 1, 0, 3, 0, 2, 0, 1, 0, 3, 0 };
             var result = _adderService.TryAdd(input);
 
-            Assert.That(result, Is.EqualTo(10));
+            Assert.That(result.Total, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void TryAdd_ShouldReturnCorrectFormula_WhenGivenListOfInts()
+        {
+            var input = new List<int> { 1, 0, 3, 0, 2, 0, 1, 0, 3, 0 };
+            var result = _adderService.TryAdd(input);
+
+            Assert.That(result.Formula, Is.EqualTo(string.Format("{0} = {1}", string.Join('+', input), result.Total)));
         }
     }
 }
