@@ -28,7 +28,7 @@ namespace R365.Challenge.Tests
         }
 
         [Test]
-        public void GetDelimiters_ShouldReturnCustomAndDefaultDelimiters_WhenInputContainsCustomDelimiter()
+        public void GetDelimiters_ShouldReturnSingleCharacterCustomAndDefaultDelimiters_WhenInputContainsSingleCharacterCustomDelimiter()
         {
             var input = "//#\\n2#5";
             var calculation = _delimiterParserService.GetDelimiters(input);
@@ -41,10 +41,23 @@ namespace R365.Challenge.Tests
         }
 
         [Test]
+        public void GetDelimiters_ShouldReturnMultiCharacterCustomAndDefaultDelimiters_WhenInputContainsMultiCharacterCustomDelimiter()
+        {
+            var input = "//[***]\\n11***22***33";
+            var calculation = _delimiterParserService.GetDelimiters(input);
+
+            Assert.That(calculation.Delimiters, Is.Not.Empty);
+            Assert.That(calculation.Delimiters.Count, Is.EqualTo(3));
+            Assert.That(calculation.Delimiters.Contains(","), Is.True);
+            Assert.That(calculation.Delimiters.Contains("\\n"), Is.True);
+            Assert.That(calculation.Delimiters.Contains("***"), Is.True);
+        }
+
+        [Test]
         public void GetDelimiters_ShoudThrowException_WhenInputContainsIncorrectlyFormattedCustomDelimiter()
         {
             var input = "//#n2#5";
-            Assert.Throws<ArgumentException>(() =>  _delimiterParserService.GetDelimiters(input));
+            Assert.Throws<ArgumentException>(() => _delimiterParserService.GetDelimiters(input));
         }
     }
 }
