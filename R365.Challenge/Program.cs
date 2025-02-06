@@ -22,6 +22,7 @@ namespace R365.Challenge
                 .AddSingleton<IAdderService, AdderService>()
                 .AddSingleton<ICalculatorService, CalculatorService>()
                 .AddSingleton<IInputParserService, InputParserService>()
+                .AddSingleton<IDelimiterParserService, DelimiterParserService>()
                 .AddSingleton<Application>()
                 .BuildServiceProvider();
 

@@ -6,18 +6,24 @@ namespace R365.Challenge.Services
     {
         private readonly IAdderService _adder;
         private readonly IInputParserService _inputParser;
+        private readonly IDelimiterParserService _delimiterParser;
 
-        public CalculatorService(IAdderService adder, IInputParserService inputParser)
+        public CalculatorService(IAdderService adder, IInputParserService inputParser, IDelimiterParserService delimiterParser)
         {
             _adder = adder;
             _inputParser = inputParser;
+            _delimiterParser = delimiterParser;
         }
 
         public int Calculate(string input)
         {
-            var operands = input.Split(new string[] { ",", "\\n" }, StringSplitOptions.None);
             try
             {
+                var calculation = _delimiterParser.GetDelimiters(input);
+                calculation.Operands = input.Substring(calculation.OperandStartIndex);
+
+                var operands = calculation.Operands.Split(calculation.Delimiters.ToArray(), StringSplitOptions.None);
+
                 var parsedInput = _inputParser.Parse(operands);
                 return _adder.TryAdd(parsedInput);
             }
