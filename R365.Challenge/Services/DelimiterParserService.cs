@@ -15,22 +15,47 @@ namespace R365.Challenge.Services
 
             if (input.StartsWith("//"))
             {
-                var delimiterString = input.Substring(2, 1);
-                delimiters.Add(delimiterString);
-                //Add one to this value since the close for custom delimiters is 2 characters long.
-                calculation.OperandStartIndex = input.IndexOf("\\n") + 2;
+                var operandStartIndex = input.IndexOf("\\n");
 
-                if (calculation.OperandStartIndex != 5)
+                if (operandStartIndex == 3)
                 {
-                    //At this point, custom delimiters should be single characters and bound between // and \n
-                    //If this format is not used, we need to throw here
-                    throw new ArgumentException("Custom delimiters must be a single character and denoted between // and \\n");
+                    delimiters.Add(GetSingleCharacterCustomDelimiter(input));
+                    calculation.Delimiters = delimiters;
+                    calculation.OperandStartIndex = operandStartIndex + 2;
+                    return calculation;
+                }
+
+                if (operandStartIndex > 3)
+                {
+                    delimiters.AddRange(GetMultiCharacterCustomDelimiter(input, operandStartIndex));
+                    calculation.Delimiters = delimiters;
+                    calculation.OperandStartIndex = operandStartIndex + 2;
+                    return calculation;
+                }
+
+                if (operandStartIndex <= 0)
+                {
+                    //Custom delimiter must denote start and end for correct format. 
+                    //Throw error if input does not contain \n
+                    throw new ArgumentException("Custom delimiters must be denoted between // and \\n");
                 }
             }
 
             calculation.Delimiters = delimiters;
 
             return calculation;
+        }
+        private string GetSingleCharacterCustomDelimiter(string input)
+        {
+            var delimiterString = input.Substring(2, 1);
+            return delimiterString;
+        }
+
+        private List<string> GetMultiCharacterCustomDelimiter(string input, int endIndex)
+        {
+            var delimiterString = input.Substring(2, endIndex - 2);
+            var delimiters = delimiterString.Split(new string[] { "[", "]" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return delimiters;
         }
     }
 }
