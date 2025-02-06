@@ -2,6 +2,7 @@ using R365.Challenge.Interfaces;
 using R365.Challenge.Services;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using R365.Challenge.Models;
 
 namespace R365.Challenge
 {
@@ -19,7 +20,10 @@ namespace R365.Challenge
         private static ServiceProvider CreateServices()
         {
             var serviceProvider = new ServiceCollection()
-                .AddSingleton<IAdderService, AdderService>()
+                .AddSingleton<IAdditionService, AdditionService>()
+                .AddSingleton<ISubtractionService, SubtractionService>()
+                .AddSingleton<IMultiplicationService, MultiplicationService>()
+                .AddSingleton<IDivisionService, DivisionService>()
                 .AddSingleton<ICalculatorService, CalculatorService>()
                 .AddSingleton<IInputParserService, InputParserService>()
                 .AddSingleton<IDelimiterParserService, DelimiterParserService>()
@@ -41,13 +45,31 @@ namespace R365.Challenge
 
         public void Run()
         {
-            Console.Write("Provide an input: ");
-            var input = Console.ReadLine();
-
+            Console.Write("Select operation type [+,-,*,/]: ");
+            var operationType = Console.ReadLine();
+            Console.Write("Provide calculation input: ");
+            var calculationInput = Console.ReadLine();
+            
             try
             {
-                var result = _calculator.Calculate(input);
-                Console.WriteLine(string.Format("Total value: {0}", result.Total));
+                var calculationInputType = CalculationTypes.None;
+
+                calculationInputType = operationType switch
+                {
+                    "+" => CalculationTypes.Addition,
+                    "-" => CalculationTypes.Subtraction,
+                    "*" => CalculationTypes.Multiplication,
+                    "/" => CalculationTypes.Division,
+                    _ => throw new Exception("An operation must be chosen."),
+                };
+                var request = new CalculationRequest
+                {
+                    CalculationString = calculationInput,
+                    CalculationType = calculationInputType
+                };
+
+                var result = _calculator.Calculate(request);
+                Console.WriteLine(string.Format("Result: {0}", result.Total));
                 Console.WriteLine(string.Format("Parsed formula: {0}", result.Formula));
             }
             catch (Exception ex)

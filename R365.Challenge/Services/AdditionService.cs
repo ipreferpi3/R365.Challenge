@@ -3,7 +3,7 @@ using R365.Challenge.Models;
 
 namespace R365.Challenge.Services
 {
-    public class AdderService : IAdderService
+    public class AdditionService : IAdditionService
     {
         public CalculationResult TryAdd(List<int> input)
         {

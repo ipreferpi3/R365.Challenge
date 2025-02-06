@@ -4,6 +4,6 @@ namespace R365.Challenge.Interfaces
 {
     public interface ICalculatorService
     {
-        CalculationResult Calculate(string input);
+        CalculationResult Calculate(CalculationRequest request);
     }
 }
