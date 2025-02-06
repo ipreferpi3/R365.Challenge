@@ -6,7 +6,7 @@
 
         public List<string> Delimiters { get; set; }
         public int OperandStartIndex { get; set; }
-        public string Operands { get; set; }
-        public string Formula { get; set; }
+        public string OperandString { get; set; }
+        public List<string> Operands { get; set; }
     }
 }

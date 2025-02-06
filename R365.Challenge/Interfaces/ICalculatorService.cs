@@ -1,7 +1,9 @@
-﻿namespace R365.Challenge.Interfaces
+﻿using R365.Challenge.Models;
+
+namespace R365.Challenge.Interfaces
 {
     public interface ICalculatorService
     {
-        int Calculate(string input);
+        CalculationResult Calculate(string input);
     }
 }

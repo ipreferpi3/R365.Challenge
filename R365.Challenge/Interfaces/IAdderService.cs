@@ -1,7 +1,9 @@
-﻿namespace R365.Challenge.Interfaces
+﻿using R365.Challenge.Models;
+
+namespace R365.Challenge.Interfaces
 {
     public interface IAdderService
     {
-        int TryAdd(List<int> input);
+        CalculationResult TryAdd(List<int> input);
     }
 }

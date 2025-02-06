@@ -46,8 +46,9 @@ namespace R365.Challenge
 
             try
             {
-                var sum = _calculator.Calculate(input);
-                Console.WriteLine(string.Format("Total value: {0}", sum));
+                var result = _calculator.Calculate(input);
+                Console.WriteLine(string.Format("Total value: {0}", result.Total));
+                Console.WriteLine(string.Format("Parsed formula: {0}", result.Formula));
             }
             catch (Exception ex)
             {

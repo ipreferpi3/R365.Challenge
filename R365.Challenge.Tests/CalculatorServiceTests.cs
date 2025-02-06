@@ -24,78 +24,106 @@ namespace R365.Challenge.Tests
         [Test]
         public void Calculate_ShouldReturnCorrectValue_WhenGivenValidInputUsingNewLineDelimiter()
         {
-            var calculationResult = new Calculation
+            var calculation = new Calculation
             {
                 Delimiters = new List<string> { ",", "\\n" },
             };
 
-            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculationResult);
+            var calculationResult = new CalculationResult
+            {
+                Total = 12,
+                Formula = "1+2=3"
+            };
+
+            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
             A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2 });
-            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(12);
+            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(new string("1\\n2"));
 
             A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" })).MustHaveHappened();
             A.CallTo(() => _fakeAdderService.TryAdd(new List<int> { 1, 2 })).MustHaveHappened();
-            Assert.That(result, Is.EqualTo(12));
+            Assert.That(result.Total, Is.EqualTo(12));
+            Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
 
         [Test]
         public void Calculate_ShouldReturnCorrectValue_WhenGivenValidInputUsingCommaDelimiter()
         {
-            var calculationResult = new Calculation
+            var calculation = new Calculation
             {
                 Delimiters = new List<string> { ",", "\n" },
             };
 
-            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculationResult);
+            var calculationResult = new CalculationResult
+            {
+                Total = 12,
+                Formula = "1+2=3"
+            };
+
+            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
             A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2 });
-            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(12);
+            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(new string("1,2"));
 
             A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" })).MustHaveHappened();
             A.CallTo(() => _fakeAdderService.TryAdd(new List<int> { 1, 2 })).MustHaveHappened();
-            Assert.That(result, Is.EqualTo(12));
+            Assert.That(result.Total, Is.EqualTo(12));
+            Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
 
         [Test]
         public void Calculate_ShouldReturnCorrectValue_WhenGivenValidInputUsingCommaAndNewLineDelimiter()
         {
-            var calculationResult = new Calculation
+            var calculation = new Calculation
             {
                 Delimiters = new List<string> { ",", "\n" },
             };
 
-            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculationResult);
+            var calculationResult = new CalculationResult
+            {
+                Total = 12,
+                Formula = "1+2=3"
+            };
+
+            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
             A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2, 3 });
-            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(12);
+            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(new string("1\n2,3"));
 
             A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2", "3" })).MustHaveHappened();
             A.CallTo(() => _fakeAdderService.TryAdd(new List<int> { 1, 2, 3 })).MustHaveHappened();
-            Assert.That(result, Is.EqualTo(12));
+            Assert.That(result.Total, Is.EqualTo(12));
+            Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
 
         [Test]
         public void Calculate_ShouldReturnCorrectValue_WhenGivenValidInputUsingCustomDelimiter()
         {
-            var calculationResult = new Calculation
+            var calculation = new Calculation
             {
                 Delimiters = new List<string> { ",", "\\n", "#" },
                 OperandStartIndex = 4
             };
 
-            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculationResult);
+            var calculationResult = new CalculationResult
+            {
+                Total = 12,
+                Formula = "1+2=3"
+            };
+
+            A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
             A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
-            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(12);
+            A.CallTo(() => _fakeAdderService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(new string("//#\n2#5"));
 
             A.CallTo(() => _fakeInputParserService.Parse(new string[] { "2", "5" })).MustHaveHappened();
             A.CallTo(() => _fakeAdderService.TryAdd(new List<int> { 2, 5 })).MustHaveHappened();
-            Assert.That(result, Is.EqualTo(12));
+            Assert.That(result.Total, Is.EqualTo(12));
+            Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using R365.Challenge.Interfaces;
+using R365.Challenge.Models;
 
 namespace R365.Challenge.Services
 {
@@ -15,14 +16,14 @@ namespace R365.Challenge.Services
             _delimiterParser = delimiterParser;
         }
 
-        public int Calculate(string input)
+        public CalculationResult Calculate(string input)
         {
             try
             {
                 var calculation = _delimiterParser.GetDelimiters(input);
-                calculation.Operands = input.Substring(calculation.OperandStartIndex);
+                calculation.OperandString = input.Substring(calculation.OperandStartIndex);
 
-                var operands = calculation.Operands.Split(calculation.Delimiters.ToArray(), StringSplitOptions.None);
+                var operands = calculation.OperandString.Split(calculation.Delimiters.ToArray(), StringSplitOptions.None);
 
                 var parsedInput = _inputParser.Parse(operands);
                 return _adder.TryAdd(parsedInput);
