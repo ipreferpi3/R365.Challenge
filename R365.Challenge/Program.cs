@@ -8,13 +8,23 @@ namespace R365.Challenge
 {
     public class Program
     {
+        private static bool _cancel;
         public static void Main(string[] args)
         {
             var services = CreateServices();
 
             var app = services.GetRequiredService<Application>();
 
-            app.Run();
+            Console.CancelKeyPress += (sender, eventArgs) =>
+            {
+                eventArgs.Cancel = true;
+                _cancel = true;
+            };
+            while (!_cancel)
+            {
+                app.Run();
+            }
+
         }
 
         private static ServiceProvider CreateServices()
@@ -45,6 +55,8 @@ namespace R365.Challenge
 
         public void Run()
         {
+            Console.WriteLine("===============================");
+            Console.WriteLine();
             Console.Write("Select operation type [+,-,*,/]: ");
             var operationType = Console.ReadLine();
             Console.Write("Allow negatives? [Y/N]: ");
@@ -82,6 +94,7 @@ namespace R365.Challenge
                 var result = _calculator.Calculate(request);
                 Console.WriteLine(string.Format("Result: {0}", result.Total));
                 Console.WriteLine(string.Format("Parsed formula: {0}", result.Formula));
+                
             }
             catch (Exception ex)
             {
