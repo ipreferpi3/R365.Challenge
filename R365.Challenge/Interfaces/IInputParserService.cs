@@ -2,6 +2,6 @@
 {
     public interface IInputParserService
     {
-        List<int> Parse(string[] input);
+        List<int> Parse(string[] input, bool allowNegatives = false, int ceiling = 1000);
     }
 }

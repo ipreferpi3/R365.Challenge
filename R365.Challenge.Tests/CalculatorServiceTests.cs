@@ -51,12 +51,14 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeAdditionService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
 
-            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" })).MustHaveHappened();
+            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" }, A<bool>.Ignored, A<int>.Ignored))
+                .MustHaveHappened();
             Assert.That(result.Total, Is.EqualTo(12));
             Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
@@ -82,12 +84,14 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeAdditionService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
 
-            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" })).MustHaveHappened();
+            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2" }, A<bool>.Ignored, A<int>.Ignored))
+                .MustHaveHappened();
             Assert.That(result.Total, Is.EqualTo(12));
             Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
@@ -113,12 +117,14 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 1, 2, 3 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2, 3 });
             A.CallTo(() => _fakeAdditionService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
 
-            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2", "3" })).MustHaveHappened();
+            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "1", "2", "3" }, A<bool>.Ignored, A<int>.Ignored))
+                .MustHaveHappened();
             Assert.That(result.Total, Is.EqualTo(12));
             Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
@@ -145,12 +151,14 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 2, 5 });
             A.CallTo(() => _fakeAdditionService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
 
-            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "2", "5" })).MustHaveHappened();
+            A.CallTo(() => _fakeInputParserService.Parse(new string[] { "2", "5" }, A<bool>.Ignored, A<int>.Ignored))
+                .MustHaveHappened();
             Assert.That(result.Total, Is.EqualTo(12));
             Assert.That(result.Formula, Is.EqualTo("1+2=3"));
         }
@@ -177,7 +185,8 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 2, 5 });
             A.CallTo(() => _fakeAdditionService.TryAdd(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
@@ -207,7 +216,8 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeSubtractionService.TrySubtract(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
@@ -237,7 +247,8 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeMultiplicationService.TryMultiply(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);
@@ -267,7 +278,8 @@ namespace R365.Challenge.Tests
             };
 
             A.CallTo(() => _fakeDelimiterParserService.GetDelimiters(A<string>.Ignored)).Returns(calculation);
-            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored)).Returns(new List<int> { 2, 5 });
+            A.CallTo(() => _fakeInputParserService.Parse(A<string[]>.Ignored, A<bool>.Ignored, A<int>.Ignored))
+                .Returns(new List<int> { 1, 2 });
             A.CallTo(() => _fakeDivisionService.TryDivide(A<List<int>>.Ignored)).Returns(calculationResult);
 
             var result = _calculatorService.Calculate(calculationRequest);

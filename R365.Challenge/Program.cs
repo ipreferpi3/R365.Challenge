@@ -47,11 +47,20 @@ namespace R365.Challenge
         {
             Console.Write("Select operation type [+,-,*,/]: ");
             var operationType = Console.ReadLine();
+            Console.Write("Allow negatives? [Y/N]: ");
+            var allowNegatives = string.Equals(Console.ReadLine(), "Y", StringComparison.InvariantCultureIgnoreCase);
+            Console.Write("Provide upper limit for calculation (Default 1000): ");
+            var ceiling = int.TryParse(Console.ReadLine(), out int value) ? value : 1000;
             Console.Write("Provide calculation input: ");
             var calculationInput = Console.ReadLine();
             
             try
             {
+                if (string.IsNullOrEmpty(calculationInput))
+                {
+                    throw new Exception("A calculation must be provided.");
+                }
+
                 var calculationInputType = CalculationTypes.None;
 
                 calculationInputType = operationType switch
@@ -65,7 +74,9 @@ namespace R365.Challenge
                 var request = new CalculationRequest
                 {
                     CalculationString = calculationInput,
-                    CalculationType = calculationInputType
+                    CalculationType = calculationInputType,
+                    AllowNegatives = allowNegatives,
+                    Ceiling = ceiling
                 };
 
                 var result = _calculator.Calculate(request);

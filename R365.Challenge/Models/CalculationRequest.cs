@@ -6,5 +6,7 @@
 
         public string CalculationString { get; set; }
         public CalculationTypes CalculationType { get; set; }
+        public bool AllowNegatives { get; set; }
+        public int Ceiling { get; set; }
     }
 }
