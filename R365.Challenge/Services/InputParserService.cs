@@ -5,7 +5,7 @@ namespace R365.Challenge.Services
 {
     public class InputParserService : IInputParserService
     {
-        public List<int> Parse(string[] input)
+        public List<int> Parse(string[] input, bool allowNegatives = false, int ceiling = 1000)
         {
             var inputList = new List<int>();
 
@@ -14,9 +14,9 @@ namespace R365.Challenge.Services
                 inputList.Add(int.TryParse(inputItem, out int item) ? item : 0);
             }
 
-            ContainsNegatives(inputList);
+            ContainsNegatives(inputList, allowNegatives);
 
-            var filteredInputList = FilterGreaterThan(inputList);
+            var filteredInputList = FilterGreaterThan(inputList, ceiling);
 
             return filteredInputList;
         }
